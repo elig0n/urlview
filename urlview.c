@@ -714,6 +714,15 @@ into a line of its own in your \n\
 		}
 	}
 	break;
+	  case 'y':
+		fp = popen("xsel -i", "w");
+		fprintf(fp, "%s", url[current]);
+		pclose(fp);
+		move (LINES - 1, 0);
+		clrtoeol();
+		mvaddstr(LINES - 1, 0, "Yanked ");
+		mvaddstr(LINES - 1, 7, url[current]);
+	break; 
       default:
 	break;
     }
