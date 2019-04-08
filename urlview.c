@@ -688,6 +688,31 @@ into a line of its own in your \n\
       case 'N':
 	search_backward (search, urlcount, url, &redraw, &current, &top);
 	break;
+	  case 's':
+	{
+   	    char outfile[255];
+		mvaddstr (LINES - 1, 0, "Save to: ");
+		if (mutt_enter_string ((unsigned char *)outfile, sizeof (outfile), LINES - 1, 9, 0) == 0)
+		{
+			if (strlen(outfile) == 0 || *outfile == '\n')
+			{
+				move (LINES - 1, 0);
+				clrtoeol();
+				break;
+			}
+			fp = fopen(outfile, "w");
+			for (urlcheck=0; urlcheck < urlcount; urlcheck++)
+			{
+				fprintf(fp, "%s\n", url[urlcheck]);
+			}
+			move (LINES - 1, 0);
+			clrtoeol();
+			redraw = MOTION;
+			mvaddstr (LINES - 1, 0, "Wrote URLs to ");
+			mvaddstr (LINES - 1, 14, outfile);
+		}
+	}
+	break;
       default:
 	break;
     }
