@@ -720,6 +720,7 @@ into a line of its own in your \n\
 		pclose(fp);
 		move (LINES - 1, 0);
 		clrtoeol();
+		redraw = MOTION;
 		mvaddstr(LINES - 1, 0, "Yanked ");
 		mvaddstr(LINES - 1, 7, url[current]);
 	break; 
